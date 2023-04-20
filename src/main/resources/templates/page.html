@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link th:href="@{/css/page.css}" rel="stylesheet">
+
+    <script th:src="@{/js/jquery.js}"></script>
+</head>
+<body>
+<h1>Online Shopping</h1>
+<br>
+<hr>
+<br>
+<label>Don't have an account? Then signup using the form...</label>
+<br><br>
+<hr>
+
+<div th:if="${registerDTO != null}">
+    <p th:text="${registerDTO.username}"></p></div>
+<br>
+<form th:action="@{/api/auth/register1}"  method="post">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+    </div>
+    <br>
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username">
+    </div>
+    <br>
+    <div>
+        <label for="password">Quantity:</label>
+        <input type="password" name="password" id="password">
+    </div>
+    <br>
+    <input type="submit" value="Add" id="submit">
+</form>
+</body>
+</html>
