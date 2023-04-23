@@ -9,6 +9,6 @@ import java.util.Objects;
 public interface ProductService {
     Object getAllProduct(int page, int limit);
     Object addProduct(NewProduct newProduct);
-    public void updateProduct(String productId, String productName, String productCost,  String productType, String productCount);
-    public void deleteProduct(String productId);
+    public void updateProduct(Long productId, String productName, String productCost,  String productType, String productCount);
+    public void deleteProduct(Long productId);
 }

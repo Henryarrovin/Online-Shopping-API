@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    public String updateProduct(@PathVariable("productId") String productId,
+    public String updateProduct(@PathVariable("productId") Long productId,
                                 @RequestParam(required = false)String productName,
                                 @RequestParam(required = false)String productCost,
                                 @RequestParam(required = false)String productType,
@@ -42,7 +42,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable("productId") String productId){
+    public ResponseEntity<String> deleteProduct(@PathVariable("productId") Long productId){
         productServiceImpl.deleteProduct(productId);
         return ResponseEntity.ok().body("Product deleted successfully!!!");
     }

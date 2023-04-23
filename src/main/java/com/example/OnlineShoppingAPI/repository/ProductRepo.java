@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Service
 @EnableJpaRepositories
-public interface ProductRepo extends JpaRepository<NewProduct,String> {
-    Optional<NewProduct> findById(String productId);
+public interface ProductRepo extends JpaRepository<NewProduct,Long> {
+    Optional<NewProduct> findById(Long productId);
 }

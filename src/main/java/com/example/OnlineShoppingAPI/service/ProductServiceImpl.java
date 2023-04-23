@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
-    public void updateProduct(String productId, String productName, String productCost, String productType, String productCount) {
+    public void updateProduct(Long productId, String productName, String productCost, String productType, String productCount) {
         NewProduct newProduct=productRepo.findById(productId).orElseThrow(()->new IllegalStateException(productIdNotFound));
 
         if (productName!=null && productName.length()>0 && !Objects.equals(newProduct.getProductName(),productName)){
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void deleteProduct(String productId) {
+    public void deleteProduct(Long productId) {
         productRepo.deleteById(productId);
     }
 

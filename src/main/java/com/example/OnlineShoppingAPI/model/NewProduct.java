@@ -13,7 +13,7 @@ import lombok.*;
 public class NewProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String productId;
+    private Long productId;
     private String productName;
     private String productCost;
     private String productType;

@@ -32,10 +32,9 @@ public class SecurityConfig{
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/js/**", "/css/**").permitAll()
-                .requestMatchers("/api/product/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

@@ -19,13 +19,12 @@ public class JwtGenerator {
         Date currentDate=new Date();
         Date expiredDate=new Date(currentDate.getTime()+SecurityConstants.JWT_EXPIRATION);
 
-        String token= Jwts.builder()
+        return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS384,SecurityConstants.JWT_SECRET)
                 .compact();
-        return token;
     }
     public String getUserNameFromJWT(String token){
         Claims claims=Jwts.parser()
