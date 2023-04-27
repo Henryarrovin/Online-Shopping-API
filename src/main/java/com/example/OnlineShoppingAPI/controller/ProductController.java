@@ -14,7 +14,7 @@ public class ProductController {
     private ProductServiceImpl productServiceImpl;
     @Autowired
     JwtAuthenticationFilter jwtAuthenticationFilter;
-    @GetMapping("allProduct")
+    @GetMapping("/allProduct")
     public ResponseEntity<Object> getAllProduct(@RequestParam(required = false,defaultValue = "0") int page,
                                                 @RequestParam(required = false,defaultValue = "10") int limit){
         return ResponseEntity.ok().body(productServiceImpl.getAllProduct(page, limit));

@@ -19,9 +19,9 @@ public class ProductServiceImpl implements ProductService{
     @Value("${spring.productIdNotFound.error}")
     String productIdNotFound;
     @Override
-    public NewProduct getAllProduct(int page, int limit) {
+    public Object getAllProduct(int page, int limit) {
         Pageable pageable= PageRequest.of(page,limit);
-        return (NewProduct) productRepo.findAll(pageable);
+        return productRepo.findAll(pageable);
     }
 
     @Override
