@@ -26,6 +26,7 @@ import java.util.Collections;
 
 @Controller
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
     @Value("${spring.userNameTaken.error}")
     String usernameTaken;

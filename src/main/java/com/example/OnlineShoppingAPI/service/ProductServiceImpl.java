@@ -31,21 +31,25 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
-    public void updateProduct(Long productId, String productName, String productCost, String productType, String productCount) {
+    public Object updateProduct(Long productId, String productName, String productCost, String productType, String productCount) {
         NewProduct newProduct=productRepo.findById(productId).orElseThrow(()->new IllegalStateException(productIdNotFound));
 
-        if (productName!=null && productName.length()>0 && !Objects.equals(newProduct.getProductName(),productName)){
+        if (productName != null) {
             newProduct.setProductName(productName);
         }
-        if (productCost!=null && productCost.length()>0 && !Objects.equals(newProduct.getProductCost(),productCost)){
+        if (productCost != null) {
             newProduct.setProductCost(productCost);
         }
-        if (productType!=null && productType.length()>0 && !Objects.equals(newProduct.getProductType(),productType)){
+        if (productType != null) {
             newProduct.setProductType(productType);
         }
-        if (productCount!=null && productCount.length()>0 && !Objects.equals(newProduct.getProductCount(),productCount)){
+        if (productCount != null) {
             newProduct.setProductCount(productCount);
         }
+
+        // Save the updated product
+        return productRepo.save(newProduct);
+
     }
 
     @Override

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -31,17 +33,19 @@ public class ProductController {
         return ResponseEntity.ok().body(productServiceImpl.addProduct(newProduct));
     }
 
-    @PutMapping("/update/{id}")
-    public String updateProduct(@PathVariable("productId") Long productId,
-                                @RequestParam(required = false)String productName,
-                                @RequestParam(required = false)String productCost,
-                                @RequestParam(required = false)String productType,
-                                @RequestParam(required = false)String productCount){
-        productServiceImpl.updateProduct(productId,productName,productCost,productType,productCount);
-        return "Product updated successfully!!!";
+    @PutMapping("/update/{productId}")
+    public ResponseEntity<Object> updateProduct(@PathVariable("productId") Long productId,
+                                  @RequestParam(required = false)String productName,
+                                  @RequestParam(required = false)String productCost,
+                                  @RequestParam(required = false)String productType,
+                                  @RequestParam(required = false)String productCount){
+        //return productServiceImpl.updateProduct(productId,productName,productCost,productType,productCount);
+
+        return ResponseEntity.ok().body(productServiceImpl.updateProduct(productId,productName,productCost,productType,productCount));
     }
 
-    @DeleteMapping("/delete/{id}")
+
+    @DeleteMapping("/delete/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable("productId") Long productId){
         productServiceImpl.deleteProduct(productId);
         return ResponseEntity.ok().body("Product deleted successfully!!!");
