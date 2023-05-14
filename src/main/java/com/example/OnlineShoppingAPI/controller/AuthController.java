@@ -103,7 +103,7 @@ public class AuthController {
         return new ResponseEntity<>(new AuthResponseDTO(token),HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteUserById(@PathVariable("userId")Long id){
        userService.deleteUserById(id);
     }

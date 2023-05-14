@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/product")
@@ -40,7 +39,6 @@ public class ProductController {
                                   @RequestParam(required = false)String productType,
                                   @RequestParam(required = false)String productCount){
         //return productServiceImpl.updateProduct(productId,productName,productCost,productType,productCount);
-
         return ResponseEntity.ok().body(productServiceImpl.updateProduct(productId,productName,productCost,productType,productCount));
     }
 

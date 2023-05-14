@@ -31,7 +31,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
-    public Object updateProduct(Long productId, String productName, String productCost, String productType, String productCount) {
+    public Object updateProduct(Long productId, String productName, String productCost,
+                                String productType, String productCount) {
         NewProduct newProduct=productRepo.findById(productId).orElseThrow(()->new IllegalStateException(productIdNotFound));
 
         if (productName != null) {
@@ -46,10 +47,11 @@ public class ProductServiceImpl implements ProductService{
         if (productCount != null) {
             newProduct.setProductCount(productCount);
         }
+        System.out.println(productCost);
+        System.out.println(productName);
+        System.out.println(productType);
 
-        // Save the updated product
         return productRepo.save(newProduct);
-
     }
 
     @Override
