@@ -4,8 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [_token, setToken] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -24,11 +24,11 @@ export const Login = () => {
         data
       );
 
-      const { token } = response.data;
-      setToken(token);
-      navigate(`/components/NewPage/${username}/${token}`);
-
-      console.log(response.data);
+      const token = response.data;
+      const tokenString = JSON.stringify(token);
+      setToken(tokenString);
+      console.log("Token:", tokenString, typeof tokenString);
+      navigate(`/components/NewPage?username=${username}&token=${tokenString}`);
     } catch (error) {
       setError("Please check your credentials.");
       console.error(error);
