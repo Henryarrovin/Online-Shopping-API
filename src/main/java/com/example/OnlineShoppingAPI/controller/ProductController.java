@@ -1,5 +1,6 @@
 package com.example.OnlineShoppingAPI.controller;
 
+import com.example.OnlineShoppingAPI.model.CartProduct;
 import com.example.OnlineShoppingAPI.model.NewProduct;
 import com.example.OnlineShoppingAPI.security.JwtAuthenticationFilter;
 import com.example.OnlineShoppingAPI.service.ProductServiceImpl;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/product")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
     @Autowired
     private ProductServiceImpl productServiceImpl;
@@ -47,5 +49,13 @@ public class ProductController {
     public ResponseEntity<String> deleteProduct(@PathVariable("productId") Long productId){
         productServiceImpl.deleteProduct(productId);
         return ResponseEntity.ok().body("Product deleted successfully!!!");
+    }
+
+    @PutMapping("/addToCart/{productId}")
+    public ResponseEntity<Object> addToCart(@RequestBody CartProduct cartProduct,
+                                            @PathVariable("productId") Long productId,
+                                            @RequestParam(required = false)String productName,
+                                            @RequestParam(required = false)String productCount){
+        return ResponseEntity.ok().body(productServiceImpl.addToCart(cartProduct, productId, productName, productCount));
     }
 }

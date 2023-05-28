@@ -1,6 +1,7 @@
 package com.example.OnlineShoppingAPI.service;
 
 import com.example.OnlineShoppingAPI.dto.ProductDTO;
+import com.example.OnlineShoppingAPI.model.CartProduct;
 import com.example.OnlineShoppingAPI.model.NewProduct;
 import com.example.OnlineShoppingAPI.model.Product;
 
@@ -12,4 +13,5 @@ public interface ProductService {
     public Object updateProduct(Long productId, String productName, String productCost,
                                 String productType, String productCount);
     public void deleteProduct(Long productId);
+    public Object addToCart(CartProduct cartProduct, Long productId, String productName, String productCount);
 }
