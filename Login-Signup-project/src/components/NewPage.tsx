@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Form, Button, Alert } from "react-bootstrap";
 
 export type Product = {
   productId: number;
@@ -14,6 +15,13 @@ export const NewPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>();
+  const [addProducts, setAddProducts] = useState(false);
+  const [error, setError] = useState("");
+
+  const [productName, setProductName] = useState("");
+  const [productCost, setProductCost] = useState("");
+  const [productType, setProductType] = useState("");
+  const [productCount, setProductCount] = useState("");
 
   const searchParams = new URLSearchParams(location.search);
   const username = searchParams.get("username");
@@ -56,6 +64,40 @@ export const NewPage = () => {
     }
   };
 
+  const handleAddProductClick = () => {
+    setAddProducts(true);
+  };
+
+  const addProduct = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const data = {
+      productName: productName,
+      productCost: productCost,
+      productType: productType,
+      productCount: productCount,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/api/product/addNewProduct",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      setError("Product inserted...");
+      setAddProducts(false);
+      const res = response.data;
+      console.log(res);
+    } catch (error) {
+      setError("Product not inserted...");
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <h3 className="text-center mt-2">Welcome {username}</h3>
@@ -68,7 +110,11 @@ export const NewPage = () => {
           >
             All Product
           </button>
-          <button className="btn btn-outline-success me-2" type="button">
+          <button
+            className="btn btn-outline-success me-2"
+            type="button"
+            onClick={handleAddProductClick}
+          >
             Add Product
           </button>
           <button className="btn btn-outline-success me-2" type="button">
@@ -76,18 +122,79 @@ export const NewPage = () => {
           </button>
         </form>
       </nav>
-      <div className="product-container">
-        {products && products.length > 0 ? (
-          products.map((product) => (
-            <div key={product.productId} className="product-box card">
-              <h4>{product.productName}</h4>
-              <p>Cost: {product.productCost}</p>
-              <p>Type: {product.productType}</p>
-              <p>Count: {product.productCount}</p>
-            </div>
-          ))
+      <div>
+        {addProducts ? (
+          <div>
+            <Form onSubmit={addProduct}>
+              <Form.Group className="mb-3" controlId="formBasicUserName">
+                <Form.Label htmlFor="productName">productName:</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="productName"
+                  name="productName"
+                  value={productName}
+                  onChange={(e) => setProductName(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label htmlFor="productCost">productCost:</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="productCost"
+                  name="productCost"
+                  value={productCost}
+                  onChange={(e) => setProductCost(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label htmlFor="productType">productType:</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="productType"
+                  name="productType"
+                  value={productType}
+                  onChange={(e) => setProductType(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label htmlFor="productCount">productCount:</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="productCount"
+                  name="productCount"
+                  value={productCount}
+                  onChange={(e) => setProductCount(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Button
+                variant="primary"
+                type="submit"
+                className="btn btn-primary"
+              >
+                Add Product
+              </Button>
+            </Form>
+          </div>
         ) : (
-          <p>No products available.</p>
+          <div className="product-container">
+            {products && products.length > 0 ? (
+              products.map((product) => (
+                <div key={product.productId} className="product-box card">
+                  <h4>{product.productName}</h4>
+                  <p>Cost: {product.productCost}</p>
+                  <p>Type: {product.productType}</p>
+                  <p>Count: {product.productCount}</p>
+                </div>
+              ))
+            ) : (
+              <p>No products available.</p>
+            )}
+          </div>
         )}
       </div>
     </div>
