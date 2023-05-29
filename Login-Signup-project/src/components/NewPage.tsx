@@ -187,7 +187,9 @@ export const NewPage = () => {
                 <div key={product.productId} className="col-md-2 mb-2">
                   <div className="product-box card border-dark bg-dark text-white">
                     <div className="card-body">
-                      <h4 className="card-title">{product.productName}</h4>
+                      <a href="#">
+                        <h4 className="card-title">{product.productName}</h4>
+                      </a>
                       <p className="card-text">Cost: {product.productCost}</p>
                       <p className="card-text">Type: {product.productType}</p>
                       <p className="card-text">Count: {product.productCount}</p>
