@@ -101,7 +101,7 @@ export const NewPage = () => {
   return (
     <div>
       <h3 className="text-center mt-2">Welcome {username}</h3>
-      <nav className="navbar-dark bg-dark">
+      <nav className="navbar-dark bg-dark mb-2">
         <form className="container-fluid justify-content-start">
           <button
             className="btn btn-outline-success me-2"
@@ -181,14 +181,18 @@ export const NewPage = () => {
             </Form>
           </div>
         ) : (
-          <div className="product-container">
+          <div className="product-container d-flex flex-wrap row row-cols-1 row-cols-md-3 g-4">
             {products && products.length > 0 ? (
               products.map((product) => (
-                <div key={product.productId} className="product-box card">
-                  <h4>{product.productName}</h4>
-                  <p>Cost: {product.productCost}</p>
-                  <p>Type: {product.productType}</p>
-                  <p>Count: {product.productCount}</p>
+                <div key={product.productId} className="col-md-2 mb-2">
+                  <div className="product-box card border-dark bg-dark text-white">
+                    <div className="card-body">
+                      <h4 className="card-title">{product.productName}</h4>
+                      <p className="card-text">Cost: {product.productCost}</p>
+                      <p className="card-text">Type: {product.productType}</p>
+                      <p className="card-text">Count: {product.productCount}</p>
+                    </div>
+                  </div>
                 </div>
               ))
             ) : (
