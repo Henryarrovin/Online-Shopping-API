@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
@@ -17,6 +17,8 @@ export const NewPage = () => {
   const [products, setProducts] = useState<Product[]>();
   const [addProducts, setAddProducts] = useState(false);
   const [error, setError] = useState("");
+
+  const [loggedIn, setLoggedIn] = useState(true);
 
   const [productName, setProductName] = useState("");
   const [productCost, setProductCost] = useState("");
@@ -64,13 +66,13 @@ export const NewPage = () => {
     }
   };
 
-  const handleGetAllProduct = () => {
-    if (!username || !tokenObject) {
+  useEffect(() => {
+    if (!username || !tokenObject || !loggedIn) {
       navigate("/");
     } else {
       getAllProduct();
     }
-  };
+  });
 
   const handleAddProductClick = () => {
     setAddProducts(true);
@@ -114,19 +116,18 @@ export const NewPage = () => {
           <button
             className="btn btn-outline-success me-2"
             type="button"
-            onClick={handleGetAllProduct}
-          >
-            All Product
-          </button>
-          <button
-            className="btn btn-outline-success me-2"
-            type="button"
             onClick={handleAddProductClick}
           >
             Add Product
           </button>
-          <button className="btn btn-outline-success me-2" type="button">
-            Refresh Page
+          <button
+            className="btn btn-outline-success me-2"
+            type="button"
+            onClick={() => {
+              setLoggedIn(false);
+            }}
+          >
+            Logout
           </button>
         </form>
       </nav>

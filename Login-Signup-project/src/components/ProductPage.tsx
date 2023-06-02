@@ -29,8 +29,8 @@ export const ProductPage = () => {
   console.log("TOken string is........", accessToken);
 
   const handleClickBack = () => {
-    // navigate(`/components/NewPage?token=${token}`);
-    setUpdate(false);
+    navigate(`/components/NewPage?token=${token}`);
+    // setUpdate(false);
   };
 
   const updateProduct = () => {
@@ -76,9 +76,7 @@ export const ProductPage = () => {
 
   return (
     <div>
-      <h1 className="text-center text-success mb-4">
-        User Product Detail Update/View Page
-      </h1>
+      <h1 className="text-center text-success mb-4">Update or Delete page</h1>
       <div>
         {update ? (
           <div>
@@ -134,6 +132,13 @@ export const ProductPage = () => {
                 className="btn btn-primary mx-2"
               >
                 Update
+              </Button>
+              <Button
+                variant="primary"
+                type="submit"
+                className="btn btn-primary mx-2"
+              >
+                Delete
               </Button>
               <Button
                 variant="primary"
