@@ -46,6 +46,9 @@ export const NewPage = () => {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
+            params: {
+              accessToken: tokenString,
+            },
           }
         );
         setProducts(response.data.content);
@@ -179,9 +182,17 @@ export const NewPage = () => {
               <Button
                 variant="primary"
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-primary mx-2"
               >
                 Add Product
+              </Button>
+              <Button
+                variant="primary"
+                type="submit"
+                className="btn btn-primary mx-2"
+                onClick={() => setAddProducts(false)}
+              >
+                Back
               </Button>
             </Form>
           </div>
@@ -193,7 +204,7 @@ export const NewPage = () => {
                   <div className="product-box card border-dark bg-dark text-white">
                     <div className="card-body">
                       <a
-                        href={`http://localhost:5173/components/ProductPage?productId=${productIdDetail}&productName=${productNameDetail}&productCost=${productCostDetail}&productType=${productTypeDetail}&productCount=${productCountDetail}`}
+                        href={`http://localhost:5173/components/ProductPage?productId=${productIdDetail}&productName=${productNameDetail}&productCost=${productCostDetail}&productType=${productTypeDetail}&productCount=${productCountDetail}&token=${tokenString}`}
                         onClick={() => {
                           setProductIdDetail(product.productId);
                           setProductNameDetail(product.productName);
