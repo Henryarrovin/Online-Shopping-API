@@ -23,6 +23,12 @@ export const NewPage = () => {
   const [productType, setProductType] = useState("");
   const [productCount, setProductCount] = useState("");
 
+  const [productIdDetail, setProductIdDetail] = useState<number>();
+  const [productNameDetail, setProductNameDetail] = useState("");
+  const [productCostDetail, setProductCostDetail] = useState("");
+  const [productTypeDetail, setProductTypeDetail] = useState("");
+  const [productCountDetail, setProductCountDetail] = useState("");
+
   const searchParams = new URLSearchParams(location.search);
   const username = searchParams.get("username");
   const tokenString = searchParams.get("token");
@@ -45,7 +51,6 @@ export const NewPage = () => {
         setProducts(response.data.content);
         console.log("Token Object:", tokenObject);
         console.log("Access Token:", accessToken);
-        console.log("Hello token ..........");
         console.log("Response Data:", response.data.content);
       } else {
         navigate("/");
@@ -187,7 +192,16 @@ export const NewPage = () => {
                 <div key={product.productId} className="col-md-2 mb-2">
                   <div className="product-box card border-dark bg-dark text-white">
                     <div className="card-body">
-                      <a href="#">
+                      <a
+                        href={`http://localhost:5173/components/ProductPage?productId=${productIdDetail}&productName=${productNameDetail}&productCost=${productCostDetail}&productType=${productTypeDetail}&productCount=${productCountDetail}`}
+                        onClick={() => {
+                          setProductIdDetail(product.productId);
+                          setProductNameDetail(product.productName);
+                          setProductCostDetail(product.productCost);
+                          setProductTypeDetail(product.productType);
+                          setProductCountDetail(product.productCount);
+                        }}
+                      >
                         <h4 className="card-title">{product.productName}</h4>
                       </a>
                       <p className="card-text">Cost: {product.productCost}</p>
