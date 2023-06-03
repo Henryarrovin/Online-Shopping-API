@@ -74,6 +74,34 @@ export const ProductPage = () => {
     setProductCountUpdate(productCount);
   };
 
+  const deleteProduct = () => {
+    const source = {
+      productId: productId,
+    };
+
+    axios
+      .delete("http://localhost:8081/api/product/delete", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: source,
+      })
+      .then((response) => {
+        console.log("Request deleted successfully", response);
+      })
+      .catch((error) => {
+        console.error("Error deleting request:", error);
+      });
+  };
+
+  const handleDelete = () => {
+    if (token) {
+      deleteProduct();
+    } else {
+      setError("Error in token...");
+    }
+  };
+
   return (
     <div>
       <h1 className="text-center text-success mb-4">Update or Delete page</h1>
@@ -137,13 +165,6 @@ export const ProductPage = () => {
                 variant="primary"
                 type="submit"
                 className="btn btn-primary mx-2"
-              >
-                Delete
-              </Button>
-              <Button
-                variant="primary"
-                type="submit"
-                className="btn btn-primary mx-2"
                 onClick={() => {
                   setProductNameUpdate("");
                   setProductCostUpdate("");
@@ -178,6 +199,13 @@ export const ProductPage = () => {
                   onClick={handleUpdate}
                 >
                   Update
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary my-5 mx-2"
+                  onClick={handleDelete}
+                >
+                  Delete
                 </button>
                 <button
                   type="button"
